@@ -15,7 +15,7 @@ const Nav = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Contact" component={ContactScreen} />
+        <Stack.Screen name="Contacts" component={ContactScreen} />
         <Stack.Group screenOptions={{headerShown: false}}>
           <Stack.Screen name="Call" component={CallScreen} />
           <Stack.Screen name="Calling" component={CallingScreen} />

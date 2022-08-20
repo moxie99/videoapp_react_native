@@ -17,10 +17,6 @@ export default CallScreen;
 const styles = StyleSheet.create({
   page: {flex: 1, backgroundColor: '#484a48'},
   cameraPreview: {
-    // flex: 1,
-    // alignItems: 'center',
-    // paddingTop: 30,
-    // paddingHorizontal: 10,
     width: 150,
     height: 200,
     borderRadius: 50,

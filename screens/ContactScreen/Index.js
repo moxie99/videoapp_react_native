@@ -3,9 +3,22 @@ import * as React from 'react';
 import contacts from '../../assets/data/contacts.json';
 import {TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {Voximplant} from 'react-native-voximplant';
+
 const ContactScreen = () => {
   const [filterWord, setFilterWord] = React.useState('');
   const [filteredContacts, setFilteredContacts] = React.useState(contacts);
+
+  const voxImplant = Voximplant.getInstance();
+
+  React.useEffect(() => {
+    voxImplant.on(Voximplant.ClientEvents.IncomingCall, incomingCallEvent => {
+      navigation.navigate('IncomingCall', {call: incomingCallEvent.call});
+    });
+    return () => {
+      voxImplant.off(Voximplant.ClientEvents.IncomingCall);
+    };
+  });
 
   React.useEffect(() => {
     const newContacts = contacts.filter(contact =>

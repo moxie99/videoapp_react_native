@@ -4,7 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Callactionbottombox = () => {
+const Callactionbottombox = ({onHangupPress}) => {
   //set state for toggling microphone and camera
   const [isCameraOn, setIsCameraOn] = React.useState(true);
   const [isMicrophoneOn, setIsMicrophoneOn] = React.useState(false);
@@ -16,9 +16,6 @@ const Callactionbottombox = () => {
   };
   const onToggleMicrophone = () => {
     setIsMicrophoneOn(!isMicrophoneOn);
-  };
-  const onEndCall = () => {
-    Alert.alert('End call');
   };
   return (
     <View style={styles.iconsContainers}>
@@ -47,7 +44,7 @@ const Callactionbottombox = () => {
           />
         </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={onEndCall}>
+      <TouchableOpacity onPress={onHangupPress}>
         <View style={[styles.iconButtons, {backgroundColor: 'red'}]}>
           <MaterialCommunityIcons name="phone-hangup" size={30} color="white" />
         </View>

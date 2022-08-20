@@ -6,12 +6,29 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import * as React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import img from './../../assets/img/imgbg.jpeg';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {Voximplant} from 'react-native-voximplant';
 const IncomingCallScreen = () => {
+  const [caller, setCaller] = React.useState('');
+  const route = useRoute();
+  const navigation = useNavigation();
+  const {call} = route.params;
+
+  React.useEffect(() => {
+    setCaller(call.getEndpoints()[0].displayName);
+    call.on(Voximplant.CallEvents.Disconnected, callEvent => {
+      navigation.navigate('Contacts');
+    });
+    return () => {
+      call.off(Voximplant.CallEvents.Disconnected);
+    };
+  }, []);
+
   const callAlarm = () => {
     Alert.alert('Open Alarm');
   };
@@ -19,10 +36,10 @@ const IncomingCallScreen = () => {
     Alert.alert('Open Message');
   };
   const onDecline = () => {
-    Alert.alert('Open Decline');
+    call.decline();
   };
   const onAccept = () => {
-    Alert.alert('Open Accept');
+    navigation.navigate('Calling', {call, isIncomingCall: true});
   };
   return (
     <View style={styles.page}>
